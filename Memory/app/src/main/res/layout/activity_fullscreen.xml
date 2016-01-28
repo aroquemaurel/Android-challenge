@@ -95,6 +95,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/iv_down_compass_zone"
             android:layout_gravity="center_horizontal|bottom" />
+
+        <ImageButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@color/black_overlay"
+            android:id="@+id/imageButton"
+            android:src="@android:drawable/ic_dialog_info"
+            android:layout_gravity="right|bottom" />
     </FrameLayout>
+
+
 
 </FrameLayout>

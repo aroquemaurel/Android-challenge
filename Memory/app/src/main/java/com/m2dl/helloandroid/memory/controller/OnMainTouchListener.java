@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.m2dl.helloandroid.memory.FullscreenActivity;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.MotionList;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
 
 /**
@@ -17,8 +18,17 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
     /**
      *
      */
-    public OnMainTouchListener(FullscreenActivity context) {
+    public OnMainTouchListener(final FullscreenActivity context) {
         game = new Game(context);
+        context.getImgButton().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                MotionList listeAVoir = context.getListePlayer();
+                Motion mtoDevoile = listeAVoir.get(game.getNbMovementDone());
+                context.getSensorImage().display(mtoDevoile.getAction(),false);
+                return false;
+            }
+        });
     }
 
     @Override

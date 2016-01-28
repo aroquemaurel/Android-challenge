@@ -232,4 +232,10 @@ public class Game {
             timer = null;
         }
     }
+
+    public int getNbMovementDone() {
+        return nbMovementDone;
+    }
+
+
 }

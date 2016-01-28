@@ -120,9 +120,15 @@ public class ManagerSensorImage {
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                ivToVisible.setVisibility(View.INVISIBLE);
+                c.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ivToVisible.setVisibility(View.INVISIBLE);
+                    }
+                });
+
             }
-        }, 1000);
+        }, 500);
 
 
     }
