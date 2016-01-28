@@ -30,7 +30,7 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 Log.d("TouchMotion", m.getAction().toString());
                 //Toast.makeText(c, "Valeur en cours expected: " + nbMovementExpected + " done : " + nbMovementDone, Toast.LENGTH_SHORT).show();
-                game.manageMovements(m, v);
+                game.manageMovements(m);
             }
         }
 

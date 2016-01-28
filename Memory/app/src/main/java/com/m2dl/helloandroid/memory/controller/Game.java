@@ -79,10 +79,7 @@ public class Game {
 
     }
 
-    public void doMovement(Motion m) {
-    }
-
-    public void manageMovements(Motion m, View v) {
+    public void manageMovements(Motion m) {
         MotionList listePlayer1 = c.getListePlayer();
         // Si joueur 1 on ajoute dans sa liste
         if(nbMovementDone +1 > nbMovementExpected){
