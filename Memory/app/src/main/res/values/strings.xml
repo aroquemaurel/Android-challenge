@@ -5,4 +5,11 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="player_2">JOUEUR 2</string>
     <string name="player_1">JOUEUR 1</string>
+    <string name="game_finished">Jeu terminé</string>
+    <string name="end_message">
+        Cyrano, le récit du combat!
+        C'est une grande victoire de :
+    </string>
+    <string name="replay">Rejouer</string>
+    <string name="menu">Menu</string>
 </resources>

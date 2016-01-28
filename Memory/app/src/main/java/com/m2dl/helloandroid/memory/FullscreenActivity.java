@@ -1,12 +1,17 @@
 package com.m2dl.helloandroid.memory;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 
@@ -169,4 +174,39 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+    public void showEndPopup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.game_finished);
+
+        final TextView message = new TextView(this);
+
+        if (true) { // TODO replace by player winner
+            message.setText(
+                    getResources().getString(R.string.end_message)
+                    + " " + getResources().getString(R.string.player_1));
+        } else {
+            message.setText(
+                    getResources().getString(R.string.end_message)
+                            + " " + getResources().getString(R.string.player_2));
+        }
+
+        builder.setView(message);
+
+        builder.setPositiveButton(R.string.replay, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton(R.string.menu, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
 }
