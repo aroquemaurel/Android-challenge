@@ -254,4 +254,8 @@ public class FullscreenActivity extends AppCompatActivity {
     public ManagerSensorImage getSensorImage() {
         return sensorImage;
     }
+
+    public boolean isEasy() {
+        return isEasy;
+    }
 }
