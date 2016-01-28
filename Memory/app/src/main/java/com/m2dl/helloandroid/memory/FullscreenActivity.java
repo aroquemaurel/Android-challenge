@@ -2,6 +2,7 @@ package com.m2dl.helloandroid.memory;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
+        showEndPopup();
     }
 
     @Override
@@ -180,6 +182,7 @@ public class FullscreenActivity extends AppCompatActivity {
         builder.setTitle(R.string.game_finished);
 
         final TextView message = new TextView(this);
+        message.setPadding(5,5,5,5);
 
         if (true) { // TODO replace by player winner
             message.setText(
@@ -196,13 +199,15 @@ public class FullscreenActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.replay, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
+                startActivity(getIntent());
             }
         });
         builder.setNegativeButton(R.string.menu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+                Intent intent = new Intent(FullscreenActivity.this, MenuStartActivity.class);
+                startActivity(intent);
             }
         });
 
