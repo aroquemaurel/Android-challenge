@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="JOUEUR 1"
+        android:textStyle="bold"
+        android:textColor="@color/colorPlayer1"
+        android:id="@+id/tv_current_player"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/chronometer" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPlayer1"
+        android:id="@+id/chronometer"
+        android:layout_below="@+id/tv_timer"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPlayer1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Timer"
+        android:id="@+id/tv_timer"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPlayer1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Formes"
+        android:id="@+id/tv_forms"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPlayer1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/tv_forms_counter"
+        android:layout_below="@+id/tv_forms"
+        android:layout_alignEnd="@+id/tv_forms"
+        android:layout_marginEnd="24dp" />
+
+
+</RelativeLayout>
