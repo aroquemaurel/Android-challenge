@@ -184,14 +184,14 @@ public class FullscreenActivity extends AppCompatActivity {
 
     }
 
-    public void showEndPopup() {
+    public void showEndPopup(int winner) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.game_finished);
 
         final TextView message = new TextView(this);
         message.setPadding(5,5,5,5);
 
-        if (true) { // TODO replace by player winner
+        if (winner == 1) { // TODO replace by player winner
             message.setText(
                     getResources().getString(R.string.end_message)
                             + " " + getResources().getString(R.string.player_1));
