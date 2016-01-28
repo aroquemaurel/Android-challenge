@@ -59,6 +59,7 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("Mode", String.valueOf(getIntent().getExtras().getBoolean("isEasy")));
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
@@ -244,12 +245,4 @@ public class FullscreenActivity extends AppCompatActivity {
                 sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         super.onStop();
     }
-
-    /*
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-    */
 }
