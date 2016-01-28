@@ -74,31 +74,30 @@ public class Game {
         MotionList listePlayer1 = c.getListePlayer();
         // Si joueur 1 on ajoute dans sa liste
         if(nbMovementDone +1 > nbMovementExpected){
-            Toast.makeText(c, "calm your tits", Toast.LENGTH_SHORT).show();
+            Toast.makeText(c, "Vous avez jouez le bon nombre de coup", Toast.LENGTH_SHORT).show();
         } else {
             if (currentPlayer.equals(Player.PLAYER_1)) {
                 //Cas 0 on ajoute et c'est tout
                 if (listePlayer1.size() == 0) {
                     listePlayer1.add(m);
                     nbMovementDone++;
-                    //Toast.makeText(c, "TEST INIT", Toast.LENGTH_SHORT).show();
+                    c.getSensorImage().display(m.getAction(),c.isEasy());
                 } else {
                     //On regarde si on doit tester le mouvement ou si c'est un supplémentaire
                     if (nbMovementDone + 1 < nbMovementExpected) {
                         //Si le joueur fait le bon mouvement
 
                         if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
-                            Toast.makeText(c, "Bon mouvement réalisé", Toast.LENGTH_SHORT).show();
                             nbMovementDone++;
+                            c.getSensorImage().display(m.getAction(), c.isEasy());
                         } else {
-                            Toast.makeText(c, "mauvais mouvememnt, le joueur 1 a perdu", Toast.LENGTH_SHORT).show();
                             c.showEndPopup(2);
                         }
                     } else {
                         if (nbMovementDone + 1 == nbMovementExpected) {
                             listePlayer1.add(m);
                             nbMovementDone++;
-                            Toast.makeText(c, "Mouvement ajouté en position " + nbMovementDone, Toast.LENGTH_SHORT).show();
+                            c.getSensorImage().display(m.getAction(),c.isEasy());
                         }
 
                     }
@@ -111,17 +110,16 @@ public class Game {
                     //Toast.makeText(c, "Taille de la liste J1 : "+listPlayer1.size(), Toast.LENGTH_SHORT).show();
                     Log.d("TAG", "INDICE " + nbMovementDone);
                     Log.d("TAG", "Object : " + m.getAction().toString());
-                    Toast.makeText(c, "m : "+m.getAction().toString()+ " Expected : "+listePlayer1.get(nbMovementDone).getAction().toString(), Toast.LENGTH_SHORT).show();
                     if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
-                        Toast.makeText(c, "Bon mouvement réalisé", Toast.LENGTH_SHORT).show();
+                        c.getSensorImage().display(m.getAction(),c.isEasy());
                         nbMovementDone++;
                     } else {
-                        Toast.makeText(c, "mauvais mouvememnt, le joueur 2 a perdu", Toast.LENGTH_SHORT).show();
                         c.showEndPopup(1);
                     }
                 } else {
                     if (nbMovementDone + 1 == nbMovementExpected) {
                         listePlayer1.add(m);
+                        c.getSensorImage().display(m.getAction(),c.isEasy());
                         nbMovementDone++;
                     }
                 }
