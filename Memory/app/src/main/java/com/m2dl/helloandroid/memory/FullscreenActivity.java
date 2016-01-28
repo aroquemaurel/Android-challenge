@@ -11,7 +11,10 @@ import android.view.View;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.MotionList;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
+
+import java.util.ArrayList;
 
 
 /**
@@ -40,6 +43,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
+    private MotionList actionListplayer1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,9 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        //initialisation des listes
+        actionListplayer1 = new MotionList();
 
     }
 
@@ -160,8 +167,16 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Motion m = new TouchMotion(event);
+
         Log.d("TouchMotion", m.toString());
 
         return true;
+    }
+
+    public MotionList getListePlayer(){
+
+            return actionListplayer1;
+
+
     }
 }
