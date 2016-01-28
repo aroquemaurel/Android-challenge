@@ -156,23 +156,12 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
-    private static float x1 = 0;
-    private static float y1 = 0;
-    private static  float dx = 0, dy = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case (MotionEvent.ACTION_DOWN):
-                x1 = event.getX();
-                y1 = event.getY();
-                break;
-            case MotionEvent.ACTION_UP:
-                float x2 = event.getX();
-                float y2 = event.getY();
-                Motion m = new TouchMotion(event);
-                Log.d("toto", m.getAction().toString());
-        }
+        Motion m = new TouchMotion(event);
+        Log.d("TouchMotion", m.toString());
+
         return true;
     }
 }
