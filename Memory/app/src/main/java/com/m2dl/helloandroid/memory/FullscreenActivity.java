@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -94,7 +95,7 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
-    
+
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
@@ -171,7 +172,7 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Motion m = new TouchMotion(event);
-        Log.d("ActionMotion", m.toString());
+       // Log.d("ActionMotion", m.toString());
 
         return true;
     }
@@ -215,7 +216,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sm.registerListener(
                 new OnSensorEventListener(),
                 mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
@@ -227,8 +228,15 @@ public class FullscreenActivity extends AppCompatActivity {
     protected void onStop() {
         sm.unregisterListener(
                 (SensorEventListener) this,
-                sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+                sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         super.onStop();
     }
 
+    /*
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+    */
 }
