@@ -76,18 +76,15 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
 
     }
 
-//    @Override
-//    public boolean onLongClick(View v) {
-//        return false;
-//    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        Motion m = new TouchMotion(event);
+
         if (!isPlayerMovement) {
             startTimer();
         } else {
-            Motion m = new TouchMotion(event);
             if (event.getAction() == MotionEvent.ACTION_UP) {
+                Log.d("TouchMotion", m.getAction().toString());
                 //Toast.makeText(c, "Valeur en cours expected: " + nbMovementExpected + " done : " + nbMovementDone, Toast.LENGTH_SHORT).show();
                 manageMovements(m, v, event);
             }
