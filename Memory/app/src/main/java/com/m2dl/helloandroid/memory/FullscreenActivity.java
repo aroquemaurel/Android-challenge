@@ -15,7 +15,11 @@ import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.MotionList;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
+
+import java.util.ArrayList;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -43,6 +47,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
+    private MotionList actionListplayer1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,9 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        //initialisation des listes
+        actionListplayer1 = new MotionList();
 
     }
 
@@ -86,7 +94,7 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
-    
+
     private void hide() {
         // Hide UI first
         ActionBar actionBar = getSupportActionBar();
@@ -163,9 +171,17 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Motion m = new TouchMotion(event);
+
         Log.d("TouchMotion", m.toString());
 
         return true;
+    }
+
+    public MotionList getListePlayer(){
+
+            return actionListplayer1;
+
+
     }
 
     public void showEndPopup() {
@@ -178,7 +194,7 @@ public class FullscreenActivity extends AppCompatActivity {
         if (true) { // TODO replace by player winner
             message.setText(
                     getResources().getString(R.string.end_message)
-                    + " " + getResources().getString(R.string.player_1));
+                            + " " + getResources().getString(R.string.player_1));
         } else {
             message.setText(
                     getResources().getString(R.string.end_message)
@@ -204,5 +220,4 @@ public class FullscreenActivity extends AppCompatActivity {
 
         builder.show();
     }
-
 }

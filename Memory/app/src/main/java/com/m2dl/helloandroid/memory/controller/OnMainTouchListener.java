@@ -5,12 +5,18 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.m2dl.helloandroid.memory.FullscreenActivity;
 import com.m2dl.helloandroid.memory.R;
+import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.MotionList;
+import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,10 +30,12 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
     }
 
     private Player currentPlayer;
+    private int nbMovementExpected = 1;
+    private int nbMovementDone = 0;
 
-    private final int TIMER_INCREMENT = 500;
+    private final int TIMER_INCREMENT = 1000;
 
-    private Activity c;
+    private FullscreenActivity c;
 
     private boolean isPlayerMovement;
     private int nbLines;
@@ -51,11 +59,12 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
     /**
      *
      */
-    public OnMainTouchListener(Activity context) {
+    public OnMainTouchListener(FullscreenActivity context) {
         c = context;
         currentPlayer = Player.PLAYER_1;
-        timePerPlayer = 2000;
+        timePerPlayer = 5000;
         isPlayerMovement = false;
+
 
         tvCurrentPlayer = (TextView) c.findViewById(R.id.tv_current_player);
         tvFormsCounter = (TextView) c.findViewById(R.id.tv_forms_counter);
@@ -76,13 +85,81 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
     public boolean onTouch(View v, MotionEvent event) {
         if (!isPlayerMovement) {
             startTimer();
-            manageMovements(v, event);
+        } else {
+            Motion m = new TouchMotion(event);
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                //Toast.makeText(c, "Valeur en cours expected: " + nbMovementExpected + " done : " + nbMovementDone, Toast.LENGTH_SHORT).show();
+                manageMovements(m, v, event);
+            }
         }
-        return false;
+        return true;
     }
 
-    public void manageMovements(View v, MotionEvent event) {
-            // TODO :
+    public void manageMovements(Motion m, View v, MotionEvent event) {
+        MotionList listePlayer1 = c.getListePlayer();
+        // Si joueur 1 on ajoute dans sa liste
+        if(nbMovementDone +1 > nbMovementExpected){
+            Toast.makeText(c, "calm your tits", Toast.LENGTH_SHORT).show();
+        } else {
+            if (currentPlayer.equals(Player.PLAYER_1)) {
+                //Cas 0 on ajoute et c'est tout
+                if (listePlayer1.size() == 0) {
+                    listePlayer1.add(m);
+                    nbMovementDone++;
+                    //nextPlayer();
+                    //Toast.makeText(c, "TEST INIT", Toast.LENGTH_SHORT).show();
+                } else {
+                    //On regarde si on doit tester le mouvement ou si c'est un supplémentaire
+                    if (nbMovementDone + 1 < nbMovementExpected) {
+                        //Si le joueur fait le bon mouvement
+
+                        if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
+                            Toast.makeText(c, "Bon mouvement réalisé", Toast.LENGTH_SHORT).show();
+                            nbMovementDone++;
+                        } else {
+                            Toast.makeText(c, "mauvais mouvememnt, le joueur 1 a perdu", Toast.LENGTH_SHORT).show();
+                            c.finish();
+
+
+                        }
+                    } else {
+                        if (nbMovementDone + 1 == nbMovementExpected) {
+                            listePlayer1.add(m);
+                            nbMovementDone++;
+                            //nextPlayer();
+                            Toast.makeText(c, "Mouvement ajouté en position " + nbMovementDone, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+            } else {
+                //Cas 0 on ajoute et c'est tout
+                //On regarde si on doit tester le mouvement ou si c'est un supplémentaire
+                if (nbMovementDone + 1 < nbMovementExpected) {
+                    //Si le joueur fait le bon mouvement
+                    //Toast.makeText(c, "Taille de la liste J1 : "+listPlayer1.size(), Toast.LENGTH_SHORT).show();
+                    Log.d("TAG", "INDICE " + nbMovementDone);
+                    Log.d("TAG", "Object : " + m.getAction().toString());
+                    Toast.makeText(c, "m : "+m.getAction().toString()+ " Expected : "+listePlayer1.get(nbMovementDone).getAction().toString(), Toast.LENGTH_SHORT).show();
+                    if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
+                        Toast.makeText(c, "Bon mouvement réalisé", Toast.LENGTH_SHORT).show();
+                        nbMovementDone++;
+                    } else {
+                        Toast.makeText(c, "mauvais mouvememnt, le joueur 2 a perdu", Toast.LENGTH_SHORT).show();
+                        c.finish();
+                    }
+                } else {
+                    if (nbMovementDone + 1 == nbMovementExpected) {
+                        listePlayer1.add(m);
+                        nbMovementDone++;
+                        //nextPlayer();
+                    }
+
+                }
+
+
+            }
+        }
 
     }
 
@@ -96,10 +173,14 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
         switch (currentPlayer) {
             case PLAYER_1:
                 currentPlayer = Player.PLAYER_2;
+                nbMovementExpected++;
+                nbMovementDone = 0;
                 refreshUI(false);
                 break;
             case PLAYER_2:
                 currentPlayer = Player.PLAYER_1;
+                nbMovementExpected++;
+                nbMovementDone = 0;
                 refreshUI(true);
                 break;
             default:
