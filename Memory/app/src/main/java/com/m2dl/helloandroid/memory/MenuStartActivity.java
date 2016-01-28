@@ -21,6 +21,9 @@ public class MenuStartActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intentStartEasy = new Intent(MenuStartActivity.this,FullscreenActivity.class);
+                Bundle b = new Bundle();
+                b.putBoolean("isEasy", true);
+                intentStartEasy.putExtras(b);
                 startActivity(intentStartEasy);
             }
         });
@@ -29,6 +32,9 @@ public class MenuStartActivity extends Activity {
             @Override
             public void onClick(View v){
                 Intent intentStartNormal = new Intent(MenuStartActivity.this,FullscreenActivity.class);
+                Bundle b = new Bundle();
+                b.putBoolean("isEasy", false);
+                intentStartNormal.putExtras(b);
                 startActivity(intentStartNormal);
             }
         });
