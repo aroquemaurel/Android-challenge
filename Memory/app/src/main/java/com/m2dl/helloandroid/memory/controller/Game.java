@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,19 +62,12 @@ public class Game {
         isPlayerMovement = false;
         nbLines = 0;
         c = context;
-        currentPlayer = Player.PLAYER_1;
-        timePerPlayer = 5000;
-        isPlayerMovement = false;
-
 
         tvCurrentPlayer = (TextView) c.findViewById(R.id.tv_current_player);
         tvFormsCounter = (TextView) c.findViewById(R.id.tv_forms_counter);
         tvForms = (TextView) c.findViewById(R.id.tv_forms);
         tvTimer = (TextView) c.findViewById(R.id.tv_timer);
         chrono = (Chronometer) c.findViewById(R.id.chronometer);
-
-        nbLines = 0;
-
     }
 
     public void manageMovements(Motion m) {
@@ -90,7 +81,6 @@ public class Game {
                 if (listePlayer1.size() == 0) {
                     listePlayer1.add(m);
                     nbMovementDone++;
-                    //nextPlayer();
                     //Toast.makeText(c, "TEST INIT", Toast.LENGTH_SHORT).show();
                 } else {
                     //On regarde si on doit tester le mouvement ou si c'est un supplémentaire
@@ -103,14 +93,11 @@ public class Game {
                         } else {
                             Toast.makeText(c, "mauvais mouvememnt, le joueur 1 a perdu", Toast.LENGTH_SHORT).show();
                             c.showEndPopup(2);
-
-
                         }
                     } else {
                         if (nbMovementDone + 1 == nbMovementExpected) {
                             listePlayer1.add(m);
                             nbMovementDone++;
-                            //nextPlayer();
                             Toast.makeText(c, "Mouvement ajouté en position " + nbMovementDone, Toast.LENGTH_SHORT).show();
                         }
 
@@ -136,11 +123,8 @@ public class Game {
                     if (nbMovementDone + 1 == nbMovementExpected) {
                         listePlayer1.add(m);
                         nbMovementDone++;
-                        //nextPlayer();
                     }
-
                 }
-
 
             }
         }
@@ -152,7 +136,6 @@ public class Game {
      */
     @TargetApi(Build.VERSION_CODES.M)
     private void nextPlayer() {
-        //stopTimer();
         timePerPlayer += TIMER_INCREMENT;
         switch (currentPlayer) {
             case PLAYER_1:
