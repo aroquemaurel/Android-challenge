@@ -81,7 +81,7 @@ public class Game {
                 if (listePlayer1.size() == 0) {
                     listePlayer1.add(m);
                     nbMovementDone++;
-                    c.getSensorImage().display(m.getAction(),c.isEasy());
+                    c.getSensorImage().display(m.getAction(), !c.isEasy());
                 } else {
                     //On regarde si on doit tester le mouvement ou si c'est un supplémentaire
                     if (nbMovementDone + 1 < nbMovementExpected) {
@@ -89,7 +89,7 @@ public class Game {
 
                         if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
                             nbMovementDone++;
-                            c.getSensorImage().display(m.getAction(), c.isEasy());
+                            c.getSensorImage().display(m.getAction(), !c.isEasy());
                         } else {
                             c.showEndPopup(2);
                         }
@@ -97,7 +97,7 @@ public class Game {
                         if (nbMovementDone + 1 == nbMovementExpected) {
                             listePlayer1.add(m);
                             nbMovementDone++;
-                            c.getSensorImage().display(m.getAction(),c.isEasy());
+                            c.getSensorImage().display(m.getAction(), !c.isEasy());
                         }
 
                     }
@@ -111,7 +111,7 @@ public class Game {
                     Log.d("TAG", "INDICE " + nbMovementDone);
                     Log.d("TAG", "Object : " + m.getAction().toString());
                     if (m.getAction().equals(listePlayer1.get(nbMovementDone).getAction())) {
-                        c.getSensorImage().display(m.getAction(),c.isEasy());
+                        c.getSensorImage().display(m.getAction(),!c.isEasy());
                         nbMovementDone++;
                     } else {
                         c.showEndPopup(1);
@@ -119,7 +119,7 @@ public class Game {
                 } else {
                     if (nbMovementDone + 1 == nbMovementExpected) {
                         listePlayer1.add(m);
-                        c.getSensorImage().display(m.getAction(),c.isEasy());
+                        c.getSensorImage().display(m.getAction(),!c.isEasy());
                         nbMovementDone++;
                     }
                 }

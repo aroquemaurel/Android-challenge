@@ -84,28 +84,28 @@ public class ManagerSensorImage {
     public void display(ActionMotion action, final boolean isGyro) {
         switch (action) {
             case LEFT:
-                if (!isGyro) {
+                if (isGyro) {
                     setVisible(ivLeftCompass);
                 } else {
                     setVisible(ivLeft);
                 }
                 break;
             case RIGHT:
-                if (!isGyro) {
+                if (isGyro) {
                     setVisible(ivRightCompass);
                 } else {
                     setVisible(ivRight);
                 }
                 break;
             case UP:
-                if (!isGyro) {
+                if (isGyro) {
                     setVisible(ivUpCompass);
                 } else {
                     setVisible(ivUp);
                 }
                 break;
             case DOWN:
-                if (!isGyro) {
+                if (isGyro) {
                     setVisible(ivDownCompass);
                 } else {
                     setVisible(ivDown);
