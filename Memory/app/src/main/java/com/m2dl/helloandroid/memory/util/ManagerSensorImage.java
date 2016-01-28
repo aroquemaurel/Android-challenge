@@ -47,14 +47,14 @@ public class ManagerSensorImage {
         ivRightCompass = (ImageView) c.findViewById(R.id.iv_right_compass_zone);
         ivDownCompass = (ImageView) c.findViewById(R.id.iv_down_compass_zone);
 
-        ivUp.setVisibility(View.VISIBLE);
-        ivLeft.setVisibility(View.VISIBLE);
-        ivRight.setVisibility(View.VISIBLE);
-        ivDown.setVisibility(View.VISIBLE);
-        ivUpCompass.setVisibility(View.VISIBLE);
-        ivLeftCompass.setVisibility(View.VISIBLE);
-        ivRightCompass.setVisibility(View.VISIBLE);
-        ivDownCompass.setVisibility(View.VISIBLE);
+        ivUp.setVisibility(View.INVISIBLE);
+        ivLeft.setVisibility(View.INVISIBLE);
+        ivRight.setVisibility(View.INVISIBLE);
+        ivDown.setVisibility(View.INVISIBLE);
+        ivUpCompass.setVisibility(View.INVISIBLE);
+        ivLeftCompass.setVisibility(View.INVISIBLE);
+        ivRightCompass.setVisibility(View.INVISIBLE);
+        ivDownCompass.setVisibility(View.INVISIBLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             arrow_up = c.getResources().getDrawable(R.mipmap.ic_arrow_up, c.getTheme());
@@ -85,36 +85,36 @@ public class ManagerSensorImage {
         switch (action) {
             case LEFT:
                 if (isGyro) {
-                    test(ivLeftCompass);
+                    setVisible(ivLeftCompass);
                 } else {
-                    test(ivLeft);
+                    setVisible(ivLeft);
                 }
                 break;
             case RIGHT:
                 if (isGyro) {
-                    test(ivRightCompass);
+                    setVisible(ivRightCompass);
                 } else {
-                    test(ivRight);
+                    setVisible(ivRight);
                 }
                 break;
             case UP:
                 if (isGyro) {
-                    test(ivUpCompass);
+                    setVisible(ivUpCompass);
                 } else {
-                    test(ivUp);
+                    setVisible(ivUp);
                 }
                 break;
             case DOWN:
                 if (isGyro) {
-                    test(ivDownCompass);
+                    setVisible(ivDownCompass);
                 } else {
-                    test(ivDown);
+                    setVisible(ivDown);
                 }
                 break;
         }
     }
 
-    public void test(final ImageView ivToVisible) {
+    public void setVisible(final ImageView ivToVisible) {
         Timer t = new Timer();
         ivToVisible.setVisibility(View.VISIBLE);
         t.schedule(new TimerTask() {

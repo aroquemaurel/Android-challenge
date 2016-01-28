@@ -227,4 +227,8 @@ public class FullscreenActivity extends AppCompatActivity {
 
         builder.show();
     }
+
+    public ManagerSensorImage getSensorImage() {
+        return sensorImage;
+    }
 }

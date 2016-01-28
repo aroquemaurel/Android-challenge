@@ -99,7 +99,7 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
         MotionList listePlayer1 = c.getListePlayer();
         // Si joueur 1 on ajoute dans sa liste
         if(nbMovementDone +1 > nbMovementExpected){
-            Toast.makeText(c, "calm your tits", Toast.LENGTH_SHORT).show();
+            Toast.makeText(c, "Vous ne pouvez jouer plus de coup", Toast.LENGTH_SHORT).show();
         } else {
             if (currentPlayer.equals(Player.PLAYER_1)) {
                 //Cas 0 on ajoute et c'est tout
