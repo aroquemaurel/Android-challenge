@@ -17,6 +17,7 @@ import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
 import com.m2dl.helloandroid.memory.models.motions.MotionList;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
+import com.m2dl.helloandroid.memory.util.ManagerSensorImage;
 
 import java.util.ArrayList;
 
@@ -48,12 +49,18 @@ public class FullscreenActivity extends AppCompatActivity {
     private View mControlsView;
     private boolean mVisible;
     private MotionList actionListplayer1;
+    private ManagerSensorImage sensorImage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
+        sensorImage = new ManagerSensorImage(this);
+
+
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -63,7 +70,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
         //initialisation des listes
         actionListplayer1 = new MotionList();
