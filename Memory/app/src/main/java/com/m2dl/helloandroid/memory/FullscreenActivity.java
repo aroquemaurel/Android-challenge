@@ -3,6 +3,10 @@ package com.m2dl.helloandroid.memory;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
+import com.m2dl.helloandroid.memory.controller.OnSensorEventListener;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
 import com.m2dl.helloandroid.memory.models.motions.MotionList;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
@@ -48,6 +53,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private View mControlsView;
     private boolean mVisible;
     private MotionList actionListplayer1;
+    private SensorManager sm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,8 @@ public class FullscreenActivity extends AppCompatActivity {
 
         //initialisation des listes
         actionListplayer1 = new MotionList();
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+
 
     }
 
@@ -172,8 +180,6 @@ public class FullscreenActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         Motion m = new TouchMotion(event);
 
-        Log.d("TouchMotion", m.toString());
-
         return true;
     }
 
@@ -220,4 +226,30 @@ public class FullscreenActivity extends AppCompatActivity {
 
         builder.show();
     }
+
+    protected void onResume() {
+        super.onResume();
+        Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sm.registerListener(
+                new OnSensorEventListener(),
+                mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    //-----------------------------------------------------------------
+    // 9. Evenements (direction) :
+    //-----------------------------------------------------------------
+    protected void onStop() {
+        sm.unregisterListener(
+                (SensorEventListener) this,
+                sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        super.onStop();
+    }
+
+    /*
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+    */
 }

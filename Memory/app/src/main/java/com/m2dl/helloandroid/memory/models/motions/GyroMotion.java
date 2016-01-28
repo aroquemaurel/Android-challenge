@@ -1,13 +1,21 @@
 package com.m2dl.helloandroid.memory.models.motions;
 
-import android.view.MotionEvent;
+import android.hardware.SensorEvent;
 
 /**
  * Created by aroquemaurel on 28/01/16.
  */
-public class GyroMotion extends Motion {
+public class GyroMotion extends Motion<SensorEvent> {
+    public GyroMotion(SensorEvent event) {
+        super(event);
+    }
+
+    public GyroMotion() {
+
+    }
+
     @Override
-    public void loadEvent(MotionEvent event) {
+    public void loadEvent(SensorEvent event) {
         
     }
 }

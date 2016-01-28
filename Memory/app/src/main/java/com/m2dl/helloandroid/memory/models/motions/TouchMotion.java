@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 /**
  * Created by aroquemaurel on 28/01/16.
  */
-public class TouchMotion extends Motion {
+public class TouchMotion extends Motion<MotionEvent> {
     public TouchMotion() {
 
     }
