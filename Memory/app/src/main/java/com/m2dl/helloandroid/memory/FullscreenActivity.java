@@ -240,7 +240,7 @@ public class FullscreenActivity extends AppCompatActivity {
     //-----------------------------------------------------------------
     protected void onStop() {
         sm.unregisterListener(
-                (SensorEventListener) this,
+                new OnSensorEventListener(),
                 sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         super.onStop();
     }
