@@ -10,17 +10,35 @@ public class Motion  {
     private MotionEvent event;
     private ActionMotion action;
 
+    private float x1 = 0, x2 = 0, y1 = 0, y2 = 0, dx = 0, dy = 0;
 
     public Motion() {
 
     }
 
-    public void loadEvent(MotionEvent event) {
-        float x1,x2;
-        final int MIN_DISTANCE = 150;
+    public Motion(MotionEvent event) {
+        loadEvent(event);
+    }
 
-        this.event = event;
-        action = null; // TODO IMPLEMENT ME
+    public void loadEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case (MotionEvent.ACTION_DOWN):
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                y2 = event.getY();
+                dx = x2 - x1;
+                dy = y2 - y1;
+
+                // Use dx and dy to determine the direction
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    action = (dx > 0) ? ActionMotion.RIGHT : ActionMotion.LEFT;
+                } else {
+                    action = (dx > 0) ? ActionMotion.DOWN : ActionMotion.UP;
+                }
+        }
     }
 
     public ActionMotion getAction() {
