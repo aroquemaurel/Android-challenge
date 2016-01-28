@@ -17,6 +17,7 @@
         android:textSize="50sp"
         android:gravity="center"
         android:text="@string/dummy_content" />
+    <include layout="@layout/bar_layout"></include>
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
