@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +17,7 @@ import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 import com.m2dl.helloandroid.memory.controller.OnSensorEventListener;
-import com.m2dl.helloandroid.memory.models.motions.Motion;
 import com.m2dl.helloandroid.memory.models.motions.MotionList;
-import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
-
-import java.util.ArrayList;
 
 
 /**
@@ -55,17 +49,21 @@ public class FullscreenActivity extends AppCompatActivity {
     private MotionList actionListplayer1;
     private SensorManager sm;
 
+    private boolean isEasy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.d("Mode", String.valueOf(getIntent().getExtras().getBoolean("isEasy")));
+        isEasy = getIntent().getExtras().getBoolean("isEasy");
+        Log.d("Mode", String.valueOf(isEasy));
         setContentView(R.layout.activity_fullscreen);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-        mContentView.setOnTouchListener(new OnMainTouchListener(this));
+
+        if(isEasy) {
+            mContentView.setOnTouchListener(new OnMainTouchListener(this));
+        }
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -177,18 +175,8 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Motion m = new TouchMotion(event);
-
-        return true;
-    }
-
     public MotionList getListePlayer(){
-
-            return actionListplayer1;
-
-
+        return actionListplayer1;
     }
 
     public void showEndPopup(int winner) {
@@ -230,19 +218,23 @@ public class FullscreenActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sm.registerListener(
-                new OnSensorEventListener(),
-                mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+        if(!isEasy) {
+            Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            sm.registerListener(
+                    new OnSensorEventListener(this),
+                    mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     //-----------------------------------------------------------------
     // 9. Evenements (direction) :
     //-----------------------------------------------------------------
     protected void onStop() {
-        sm.unregisterListener(
-                new OnSensorEventListener(),
-                sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        if(!isEasy) {
+            sm.unregisterListener(
+                    new OnSensorEventListener(this),
+                    sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        }
         super.onStop();
     }
 }

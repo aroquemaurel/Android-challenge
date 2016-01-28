@@ -4,13 +4,19 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.m2dl.helloandroid.memory.FullscreenActivity;
 import com.m2dl.helloandroid.memory.models.motions.ActionMotion;
+import com.m2dl.helloandroid.memory.models.motions.GyroMotion;
+import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
 
 /**
  * Created by florent on 28/01/16.
  */
 public class OnSensorEventListener implements SensorEventListener {
+    private Game game;
 
     private final int DELTA = 30;
     private Float verticalValue;
@@ -23,12 +29,13 @@ public class OnSensorEventListener implements SensorEventListener {
 
     private boolean newMovement = true;
 
-    public OnSensorEventListener() {
+    public OnSensorEventListener(FullscreenActivity context) {
         verticalValue = null;
         horizontalValue = null;
         initVerticalValue = 0f;
         initHorizontalValue = 0f;
         lastMove = null;
+        game = new Game(context);
     }
 
     @Override
@@ -52,14 +59,18 @@ public class OnSensorEventListener implements SensorEventListener {
 
                     if (action != null) {
                         if(lastMove == null) {
-                            Log.d("ActionMotion", action.toString()
-                                    + " : " + verticalValue + "(" + initVerticalValue + ") "
-                                    + horizontalValue + "(" + initHorizontalValue + ")");
-
+                            Motion m = new GyroMotion(event);
+                            m.setAction(action);
+                            Toast.makeText(game.getContext(), "Motion "+m.toString(), Toast.LENGTH_SHORT).show();
                             horizontalValue = null;
                             verticalValue = null;
                             newMovement = false;
                             lastMove = action;
+                            if (!game.isPlayerMovement()) {
+                                game.startTimer();
+                            } else {
+                                game.manageMovements(m, null);
+                            }
                         } else {
                             if(values[0] >= -5 && values[0] < 5 && values[1] >= -5 && values[1] < 5) {
                                 lastMove = null;
@@ -69,15 +80,8 @@ public class OnSensorEventListener implements SensorEventListener {
                                 horizontalValue = values[1];
                             }
                         }
-                    } else {
-
-                        // Euuuh. I don't know... Any Idea ? Fuck off.
                     }
                 }
-
-                //float x = event.values[0];
-                //float y = event.values[1];
-                //Log.d("toto", x + "_" + y);
             }
         }
 
