@@ -33,10 +33,7 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
                 game.manageMovements(m, v);
             }
         }
-
         return true;
     }
-
-
 
 }

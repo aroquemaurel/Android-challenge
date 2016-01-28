@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
 import com.m2dl.helloandroid.memory.controller.OnSensorEventListener;
 import com.m2dl.helloandroid.memory.models.motions.MotionList;
+import com.m2dl.helloandroid.memory.util.ManagerSensorImage;
 
 
 /**
@@ -48,6 +49,9 @@ public class FullscreenActivity extends AppCompatActivity {
     private boolean mVisible;
     private MotionList actionListplayer1;
     private SensorManager sm;
+    private ManagerSensorImage sensorImage;
+
+
 
     private boolean isEasy;
     @Override
@@ -56,6 +60,9 @@ public class FullscreenActivity extends AppCompatActivity {
         isEasy = getIntent().getExtras().getBoolean("isEasy");
         Log.d("Mode", String.valueOf(isEasy));
         setContentView(R.layout.activity_fullscreen);
+        sensorImage = new ManagerSensorImage(this);
+
+
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -68,7 +75,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        //findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
 
         //initialisation des listes
         actionListplayer1 = new MotionList();
@@ -230,11 +237,15 @@ public class FullscreenActivity extends AppCompatActivity {
     // 9. Evenements (direction) :
     //-----------------------------------------------------------------
     protected void onStop() {
-        if(!isEasy) {
+        if (!isEasy) {
             sm.unregisterListener(
                     new OnSensorEventListener(this),
                     sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         }
         super.onStop();
+    }
+
+    public ManagerSensorImage getSensorImage() {
+        return sensorImage;
     }
 }
