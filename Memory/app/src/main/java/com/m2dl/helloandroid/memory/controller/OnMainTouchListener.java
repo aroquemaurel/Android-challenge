@@ -118,7 +118,7 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
                             nbMovementDone++;
                         } else {
                             Toast.makeText(c, "mauvais mouvememnt, le joueur 1 a perdu", Toast.LENGTH_SHORT).show();
-                            c.finish();
+                            c.showEndPopup(2);
 
 
                         }
@@ -146,7 +146,7 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
                         nbMovementDone++;
                     } else {
                         Toast.makeText(c, "mauvais mouvememnt, le joueur 2 a perdu", Toast.LENGTH_SHORT).show();
-                        c.finish();
+                        c.showEndPopup(1);
                     }
                 } else {
                     if (nbMovementDone + 1 == nbMovementExpected) {
@@ -243,7 +243,18 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
 
             public void onFinish() {
                 chrono.setText("0");
-                nextPlayer();
+                MotionList listePlayer1 = c.getListePlayer();
+                if(nbMovementExpected == listePlayer1.size()){
+                    nextPlayer();
+                } else {
+                    if(currentPlayer == Player.PLAYER_1){
+                        c.showEndPopup(2);
+                    } else {
+                        c.showEndPopup(1);
+                    }
+
+                }
+
 
             }
         }.start();
