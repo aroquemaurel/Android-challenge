@@ -1,17 +1,22 @@
 package com.m2dl.helloandroid.memory.models.motions;
 
-import android.view.MotionEvent;
-
 /**
  * Created by aroquemaurel on 28/01/16.
  * A motion can only be Up, Down, Left, Right, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
  */
-public abstract class Motion {
-    protected MotionEvent event;
+public abstract class Motion<T> {
+    protected T event;
     protected ActionMotion action;
 
+    public Motion(T event) {
+        this.event = event;
+    }
 
-    public abstract void loadEvent(MotionEvent event) ;
+    public Motion() {
+
+    }
+
+    public abstract void loadEvent(T event) ;
 
     public ActionMotion getAction() {
         return action;
@@ -21,11 +26,11 @@ public abstract class Motion {
         this.action = action;
     }
 
-    public MotionEvent getEvent() {
+    public T getEvent() {
         return event;
     }
 
-    public void setEvent(MotionEvent event) {
+    public void setEvent(T event) {
         this.event = event;
     }
 

@@ -3,6 +3,9 @@ package com.m2dl.helloandroid.memory;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
+import com.m2dl.helloandroid.memory.controller.OnSensorEventListener;
 import com.m2dl.helloandroid.memory.models.motions.Motion;
 import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
 
@@ -43,6 +47,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private View mContentView;
     private View mControlsView;
     private boolean mVisible;
+    private SensorManager sm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,9 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+
+        sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+
 
     }
 
@@ -163,7 +171,7 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Motion m = new TouchMotion(event);
-        Log.d("TouchMotion", m.toString());
+        Log.d("ActionMotion", m.toString());
 
         return true;
     }
@@ -203,6 +211,24 @@ public class FullscreenActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        Sensor mMagneticField = sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        sm.registerListener(
+                new OnSensorEventListener(),
+                mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    //-----------------------------------------------------------------
+    // 9. Evenements (direction) :
+    //-----------------------------------------------------------------
+    protected void onStop() {
+        sm.unregisterListener(
+                (SensorEventListener) this,
+                sm.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
+        super.onStop();
     }
 
 }
