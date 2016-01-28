@@ -1,14 +1,17 @@
 package com.m2dl.helloandroid.memory;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
+import com.m2dl.helloandroid.memory.models.motions.Motion;
+import com.m2dl.helloandroid.memory.models.motions.TouchMotion;
+
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -47,16 +50,6 @@ public class FullscreenActivity extends AppCompatActivity {
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
-
-        // Set up the user interaction to manually show or hide the system UI.
-        mContentView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggle();
-            }
-        });
-        mContentView.setOnTouchListener(new OnMainTouchListener(this));
-
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -88,14 +81,6 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
-        }
-    }
 
     private void hide() {
         // Hide UI first
@@ -168,5 +153,24 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+    private static float x1 = 0;
+    private static float y1 = 0;
+    private static  float dx = 0, dy = 0;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case (MotionEvent.ACTION_DOWN):
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                float x2 = event.getX();
+                float y2 = event.getY();
+                Motion m = new TouchMotion(event);
+                Log.d("toto", m.getAction().toString());
+        }
+        return true;
     }
 }

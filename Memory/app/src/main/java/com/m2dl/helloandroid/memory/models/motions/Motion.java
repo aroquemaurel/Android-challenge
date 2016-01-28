@@ -1,4 +1,4 @@
-package com.m2dl.helloandroid.memory.models;
+package com.m2dl.helloandroid.memory.models.motions;
 
 import android.view.MotionEvent;
 
@@ -6,22 +6,12 @@ import android.view.MotionEvent;
  * Created by aroquemaurel on 28/01/16.
  * A motion can only be Up, Down, Left, Right, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT
  */
-public class Motion  {
-    private MotionEvent event;
-    private ActionMotion action;
+public abstract class Motion {
+    protected MotionEvent event;
+    protected ActionMotion action;
 
 
-    public Motion() {
-
-    }
-
-    public void loadEvent(MotionEvent event) {
-        float x1,x2;
-        final int MIN_DISTANCE = 150;
-
-        this.event = event;
-        action = null; // TODO IMPLEMENT ME
-    }
+    public abstract void loadEvent(MotionEvent event) ;
 
     public ActionMotion getAction() {
         return action;
@@ -41,7 +31,7 @@ public class Motion  {
 
     @Override
     public String toString() {
-        return action.toString();
+        return action == null ? "" : action.toString();
     }
 
     @Override

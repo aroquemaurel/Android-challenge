@@ -1,4 +1,4 @@
-package com.m2dl.helloandroid.memory.models;
+package com.m2dl.helloandroid.memory.models.motions;
 
 import java.util.ArrayList;
 
