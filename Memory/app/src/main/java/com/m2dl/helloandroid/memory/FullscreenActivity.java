@@ -5,8 +5,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.m2dl.helloandroid.memory.models.motions.Motion;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -75,14 +78,6 @@ public class FullscreenActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    private void toggle() {
-        if (mVisible) {
-            hide();
-        } else {
-            show();
-        }
-    }
 
     private void hide() {
         // Hide UI first
@@ -155,5 +150,24 @@ public class FullscreenActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+    private static float x1 = 0;
+    private static float y1 = 0;
+    private static  float dx = 0, dy = 0;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case (MotionEvent.ACTION_DOWN):
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                float x2 = event.getX();
+                float y2 = event.getY();
+                Motion m = new Motion(event, x2 -x1, y2 -y1);
+                Log.d("toto", m.getAction().toString());
+        }
+        return true;
     }
 }
