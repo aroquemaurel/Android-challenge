@@ -68,9 +68,8 @@ public class OnSensorEventListener implements SensorEventListener {
                             lastMove = action;
                             if (!game.isPlayerMovement()) {
                                 game.startTimer();
-                            } else {
-                                game.manageMovements(m, null);
                             }
+                            game.manageMovements(m);
                         } else {
                             if(values[0] >= -5 && values[0] < 5 && values[1] >= -5 && values[1] < 5) {
                                 lastMove = null;

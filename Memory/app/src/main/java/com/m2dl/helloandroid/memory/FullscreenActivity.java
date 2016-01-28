@@ -208,8 +208,7 @@ public class FullscreenActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.replay, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finish();
-                startActivity(getIntent());
+               startActivity(getIntent());
             }
         });
         builder.setNegativeButton(R.string.menu, new DialogInterface.OnClickListener() {
