@@ -24,8 +24,10 @@ public class OnMainTouchListener implements View.OnTouchListener/*, View.OnLongC
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 MotionList listeAVoir = context.getListePlayer();
-                Motion mtoDevoile = listeAVoir.get(game.getNbMovementDone());
-                context.getSensorImage().display(mtoDevoile.getAction(),false);
+                if(game.getNbMovementDone() < listeAVoir.size()) {
+                    Motion mtoDevoile = listeAVoir.get(game.getNbMovementDone());
+                    context.getSensorImage().display(mtoDevoile.getAction(), false);
+                }
                 return false;
             }
         });
