@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.m2dl.helloandroid.memory.controller.OnMainTouchListener;
@@ -50,6 +51,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private MotionList actionListplayer1;
     private SensorManager sm;
     private ManagerSensorImage sensorImage;
+    private ImageButton imgButton;
 
 
 
@@ -61,8 +63,8 @@ public class FullscreenActivity extends AppCompatActivity {
         Log.d("Mode", String.valueOf(isEasy));
         setContentView(R.layout.activity_fullscreen);
         sensorImage = new ManagerSensorImage(this);
-
-
+        imgButton = (ImageButton) findViewById(R.id.imageButton);
+        imgButton.setVisibility(View.INVISIBLE);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -70,6 +72,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         if(isEasy) {
             mContentView.setOnTouchListener(new OnMainTouchListener(this));
+            imgButton.setVisibility(View.VISIBLE);
         }
 
         // Upon interacting with UI controls, delay any scheduled hide()
@@ -242,6 +245,10 @@ public class FullscreenActivity extends AppCompatActivity {
                     sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
         }
         super.onStop();
+    }
+
+    public ImageButton getImgButton() {
+        return imgButton;
     }
 
     public ManagerSensorImage getSensorImage() {
